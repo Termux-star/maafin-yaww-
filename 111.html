@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Permintaan Maaf</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+            position: relative;
+        }
+
+        h1 {
+            color: #ad1457;
+            font-size: 22px;
+            margin-bottom: 30px;
+        }
+
+        /* Container Tombol agar Simetris */
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 50px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100px; /* Ukuran tetap agar simetris */
+        }
+
+        #btnYa {
+            background-color: #ff4081;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.3);
+        }
+
+        #btnYa:hover {
+            transform: scale(1.1);
+        }
+
+        #btnTidak {
+            background-color: #757575;
+            color: white;
+            z-index: 1000;
+        }
+
+        #pesan {
+            display: none;
+            font-size: 22px;
+            color: #c2185b;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+
+        .emoji {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div id="content">
+            <div class="emoji">🥺</div>
+            <h1>Maafin aku ya Intannn.. </h1>
+            <div class="btn-wrapper">
+                <button id="btnYa" onclick="aksiIya()">Iya</button>
+                <button id="btnTidak" onmouseover="lari(this)" onclick="lari(this)">Tidak</button>
+            </div>
+        </div>
+
+        <div id="pesan">
+            <div class="emoji">🥰</div>
+            Makasih yaaaaaaaaaaaaaaa muach❤
+        </div>
+    </div>
+
+    <audio id="applause" src="https://www.myinstants.com/media/sounds/applause_8.mp3"></audio>
+
+    <script>
+        function lari(tombol) {
+            // Membuat tombol bisa berpindah ke mana saja di layar
+            const x = Math.random() * (window.innerWidth - tombol.offsetWidth);
+            const y = Math.random() * (window.innerHeight - tombol.offsetHeight);
+            
+            tombol.style.position = 'fixed';
+            tombol.style.left = x + 'px';
+            tombol.style.top = y + 'px';
+        }
+
+        function aksiIya() {
+            // Sembunyikan pertanyaan, tampilkan pesan
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('pesan').style.display = 'block';
+
+            // Bunyi tepuk tangan
+            document.getElementById('applause').play();
+
+            // Efek Kembang Api
+            var end = Date.now() + (4 * 1000); // Durasi 4 detik
+
+            (function frame() {
+              confetti({
+                particleCount: 3,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#ff4081', '#f8bbd0']
+              });
+              confetti({
+                particleCount: 3,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#ff4081', '#f8bbd0']
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+        }
+    </script>
+</body>
+</html>
